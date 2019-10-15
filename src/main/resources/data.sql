@@ -10,7 +10,7 @@ INSERT INTO `producto` (descripcion, fecha_registro, nombre, activo) VALUES ('Co
 																			('Figura',NOW(),'Flash',1),
 																			('Figura',NOW(),'Aquaman',1),
 																			('Comic',NOW(),'Mujer Maravilla',1),
-																			('Heroe Local',NOW(),'Super Policia',1),
+																			('Camiseta',NOW(),'Joker',1),
 																			('Comic',NOW(),'Spider-Man Adventure',1);
 																														
 INSERT INTO `stock` (cantidad_comprada, cantidad_stock, fecha_registro, precio_compra, precio_unidad, producto_id) VALUES   (20,10,NOW(),100,130,1), 

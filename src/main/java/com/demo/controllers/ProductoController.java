@@ -1,5 +1,6 @@
 package com.demo.controllers;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -9,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -55,6 +58,9 @@ public class ProductoController {
 		
 		if(!producto.getNombre().equals("") && !producto.getDescripcion().equals("")) {
 			producto.setActivo(1);
+			producto.getStock().setCantidadStock(producto.getStock().getCantidadComprada());
+			producto.getStock().setPrecioUnidad((producto.getStock().getPrecioCompra()+(producto.getStock().getPrecioCompra()/100)*30));
+			producto.getStock().setProducto(producto);
 			iProductoService.save(producto);
 			status.setComplete();
 
@@ -90,6 +96,11 @@ public class ProductoController {
 			
 		}
 		return "redirect:/listar";
+	}
+	
+	@GetMapping(value = "/allProduct", produces = { "application/json" })
+	public @ResponseBody  List<Producto> allProduct(){
+		return iProductoService.findAll();
 	}
 
 }

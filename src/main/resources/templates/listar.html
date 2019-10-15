@@ -32,7 +32,7 @@
 							<td th:text="${producto.id}"></td>
 							<td th:text="${producto.nombre}"></td>
 							<td th:text="${producto.descripcion}"></td>
-							<td th:text="${producto.total}"></td>
+							<td th:text="${producto.stock.cantidadStock}"></td>
 							<td th:text="${producto.fechaRegistro}"></td>
 							<td><a class="btn btn-success btn-xs"
 								th:href="@{'/stock/form/' + ${producto.id}}"

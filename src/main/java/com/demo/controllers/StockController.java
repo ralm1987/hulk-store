@@ -1,5 +1,6 @@
 package com.demo.controllers;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -47,9 +49,9 @@ public class StockController {
 		
 		Stock stock = new Stock();
 		
-		if(producto.getStocks().size()!=0) {
-			stock.setId(producto.getStocks().get(0).getId());
-			stock.setCantidadStock(producto.getStocks().get(0).getCantidadStock());
+		if(producto.getStock()!=null) {
+			stock.setId(producto.getStock().getId());
+			stock.setCantidadStock(producto.getStock().getCantidadStock());
 			stock.setProducto(producto);
 			stock.setFechaRegistro(producto.getFechaRegistro());
 		}else {
@@ -67,8 +69,6 @@ public class StockController {
 	public String guardar(@Valid Stock stock, BindingResult result, Model model,
 			RedirectAttributes flash,
 			SessionStatus status, Locale locale) {
-		
-		System.out.println(stock.getCantidadComprada()+" -- "+stock.getPrecioCompra());
 
 		if (result.hasErrors()) {
 			return "redirect:/listar";
@@ -89,6 +89,12 @@ public class StockController {
 		}
 		
 		return "redirect:/listar";
+	}
+	
+	/*Controlador para mostrar todo el Stock. GET*/
+	@GetMapping(value = "/allStock", produces = { "application/json" })
+	public @ResponseBody  List<Stock> allStock(){
+		return iStockService.findAll();
 	}
 
 }

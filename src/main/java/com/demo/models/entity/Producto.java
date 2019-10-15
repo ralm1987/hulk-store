@@ -1,9 +1,7 @@
 package com.demo.models.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,7 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -44,15 +42,11 @@ public class Producto implements Serializable {
 		fechaRegistro = new Date();
 	}
 	
-	@OneToMany(mappedBy = "producto", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(mappedBy = "producto", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
-	private List<Stock> stocks;
+	private Stock stock;
 	
 	private int activo;
-	
-	public Producto() {
-		stocks = new ArrayList<Stock>();
-	}
 
 	public Long getId() {
 		return id;
@@ -78,12 +72,12 @@ public class Producto implements Serializable {
 		this.fechaRegistro = fechaRegistro;
 	}
 
-	public List<Stock> getStocks() {
-		return stocks;
+	public Stock getStock() {
+		return stock;
 	}
 
-	public void setStocks(List<Stock> stocks) {
-		this.stocks = stocks;
+	public void setStock(Stock stock) {
+		this.stock = stock;
 	}
 
 	public String getDescripcion() {
@@ -92,17 +86,6 @@ public class Producto implements Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-	
-	public Double getTotal() {
-		Double total = 0.0;
-
-		int size = stocks.size();
-
-		for (int i = 0; i < size; i++) {
-			total += stocks.get(i).getCantidadStock();
-		}
-		return total;
 	}
 
 	public int getActivo() {

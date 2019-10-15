@@ -21,9 +21,9 @@ public class IProductoServiceImpl implements IProductoService{
 	/*Listado de Productos con disponibilidad en Stock*/
 	@Override
 	@Transactional(readOnly = true)
-	public List<Producto> listProductStock() {
+	public List<Producto> listProductStock(String term) {
 		// TODO Auto-generated method stub
-		return (List<Producto>) iProductoDao.listProductStock();
+		return (List<Producto>) iProductoDao.listProductStock(term);
 	}
 
 	/*Consulta Producto por ID*/

@@ -45,7 +45,7 @@ public class SpringBootDataJpaApplicationTests {
 	//@Test
 	public void listProductStockTest() {
 		
-		assertEquals(11, iProductoServiceImpl.listProductStock().size());
+		assertEquals(11, iProductoServiceImpl.listProductStock("").size());
 		
 	}
 	

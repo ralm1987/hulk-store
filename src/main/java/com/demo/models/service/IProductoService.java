@@ -8,8 +8,8 @@ import org.springframework.data.domain.Pageable;
 import com.demo.models.entity.Producto;
 
 public interface IProductoService {
-	
-	public List<Producto> listProductStock();
+
+	public List<Producto> listProductStock(String term);
 	
 	public List<Producto> findAll();
 	

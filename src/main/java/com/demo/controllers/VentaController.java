@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -93,9 +94,9 @@ public class VentaController {
 	}
 	
 	/*Controlador Rest para mostrar todos los Productos con Stock. GET*/
-	@GetMapping(value = "/cargar-productos", produces = { "application/json" })
-	public @ResponseBody List<Producto> cargarProductos() {
-		return iProductoService.listProductStock();
+	@GetMapping(value = "/cargar-productos/{term}", produces = { "application/json" })
+	public @ResponseBody List<Producto> cargarProductos(@PathVariable String term) {
+		return iProductoService.listProductStock(term);
 	}
 
 }
